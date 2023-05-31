@@ -9,6 +9,7 @@ import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:provider/provider.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:image/image.dart' as img;
+import 'package:uuid/uuid.dart';
 import 'dart:ui' as ui;
 
 import 'component.dart';
@@ -78,6 +79,8 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
     });
   }
 
+  final uuid = const Uuid();
+
   @override
   void onClipboardChanged() async {
     if (!shouldUpdate) {
@@ -91,6 +94,7 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
       context.read<ItemController>().addItem(Model(
           content: html,
           formats: "htmlText",
+          metadata: {"uuid": uuid.v4()},
           time: DateTime.now().millisecondsSinceEpoch));
     }
 
@@ -99,6 +103,7 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
       context.read<ItemController>().addItem(Model(
           content: text,
           formats: "plainText",
+          metadata: {"uuid": uuid.v4()},
           time: DateTime.now().millisecondsSinceEpoch));
     }
 
@@ -124,7 +129,11 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
         context.read<ItemController>().addItem(Model(
             content: imageData,
             formats: "png",
-            metadata: {"width": width.toString(), "height": height.toString()},
+            metadata: {
+              "width": width.toString(),
+              "height": height.toString(),
+              "uuid": uuid.v4()
+            },
             time: DateTime.now().millisecondsSinceEpoch));
       });
     }

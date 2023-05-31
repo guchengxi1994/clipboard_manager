@@ -39,15 +39,33 @@ class _SideMenuState extends State<SideMenu> {
             ]),
       ),
       width: 200,
-      child: SingleChildScrollView(
-        controller: controller,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _searchTextField(),
-            _buildContent(),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _searchTextField(),
+          Expanded(
+              child: SingleChildScrollView(
+            controller: controller,
+            child: _buildContent(),
+          )),
+          Container(
+              width: 180,
+              margin: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Row(
+                  children: [
+                    Icon(Icons.settings),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("设置"),
+                    Expanded(child: SizedBox()),
+                    Icon(Icons.chevron_right)
+                  ],
+                ),
+              )),
+        ],
       ),
     );
   }
@@ -95,7 +113,12 @@ class _SideMenuState extends State<SideMenu> {
                   }
                 },
                 child: Card(
-                  child: Text(e.time.toString()),
+                  child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: 180,
+                      child: Text(
+                        e.metadata["uuid"].toString().split("-").first,
+                      )),
                 ),
               ))
           .toList(),
