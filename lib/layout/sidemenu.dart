@@ -1,4 +1,5 @@
-import 'package:clipboard_manager/controller.dart';
+import 'package:clipboard_manager/item_controller.dart';
+import 'package:clipboard_manager/searching_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,6 @@ class SideMenu extends StatefulWidget {
 
 class _SideMenuState extends State<SideMenu> {
   final ScrollController controller = ScrollController();
-  bool searchRegionShow = false;
 
   final FocusNode node = FocusNode();
 
@@ -20,11 +20,7 @@ class _SideMenuState extends State<SideMenu> {
     super.initState();
     node.addListener(() {
       if (node.hasFocus) {
-        if (!searchRegionShow) {
-          setState(() {
-            searchRegionShow = true;
-          });
-        }
+        context.read<SearchingController>().changeVisible(true);
       }
     });
   }
@@ -49,60 +45,11 @@ class _SideMenuState extends State<SideMenu> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _searchTextField(),
-            _searchRegion(),
             _buildContent(),
           ],
         ),
       ),
     );
-  }
-
-  List<String> options = ["全部", "字符串", "图片", "其它"];
-
-  String currentSelected = "全部";
-
-  Widget _searchRegion() {
-    return Visibility(
-        visible: searchRegionShow,
-        child: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          width: 200,
-          child: Column(
-            children: [
-              Wrap(
-                runSpacing: 10,
-                spacing: 10,
-                children: options
-                    .map((e) => InkWell(
-                          onTap: () {
-                            setState(() {
-                              currentSelected = e;
-                            });
-                          },
-                          child: Chip(
-                              labelStyle: TextStyle(
-                                  color: currentSelected == e
-                                      ? Colors.red
-                                      : Colors.black),
-                              label: Text(e)),
-                        ))
-                    .toList(),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      currentSelected = "全部";
-                      searchRegionShow = false;
-                    });
-                  },
-                  child: const Text("收起"),
-                ),
-              )
-            ],
-          ),
-        ));
   }
 
   Widget _searchTextField() {
@@ -131,37 +78,14 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   Widget _buildContent() {
-    final items = context.watch<ItemController>().items;
-
-    final List<BaseModel> filtered;
-    switch (currentSelected) {
-      case "全部":
-        filtered = items;
-        break;
-      case "字符串":
-        filtered =
-            items.where((element) => element.formats == "plainText").toList();
-        break;
-      case "图片":
-        filtered = items
-            .where((element) => ["png"].contains(element.formats))
-            .toList();
-        break;
-      case "其它":
-        filtered = items
-            .where((element) => !["png", "plainText"].contains(element.formats))
-            .toList();
-        break;
-      default:
-        filtered = items;
-        break;
-    }
+    final c = context.watch<ItemController>();
+    List<BaseModel> filtered = !c.isFiltered ? c.items : c.filtered;
 
     return Column(
       children: filtered
           .map((e) => InkWell(
                 onTap: () {
-                  final index = items.indexOf(e);
+                  final index = c.items.indexOf(e);
                   if (index != -1) {
                     context
                         .read<ItemController>()

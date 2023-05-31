@@ -2,7 +2,7 @@ name: clipboard_manager
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 0.1.0
+version: 0.1.2
 
 environment:
   sdk: '>=3.0.2 <4.0.0'
@@ -12,7 +12,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_html: ^3.0.0-beta.1
   flutter_list_view: ^1.1.21
+  flutter_useful_widgets:
+    git: 
+      url: https://github.com/guchengxi1994/flutter_useful_widgets
+  flutter_smart_dialog: ^4.9.0+6
+  i18n_extension: ^9.0.0
+  image: ^4.0.17
   provider: ^6.0.3
   super_clipboard: ^0.4.0
 
@@ -22,6 +29,17 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
+
+dependency_overrides:  
+  flutter_useful_widgets:
+    path: D:\github_repo\flutter_useful_widgets
+
 flutter:
   uses-material-design: true
+  assets: 
+    - assets/fonts/
 
+  fonts:
+    - family: 思源
+      fonts:
+        - asset: assets/fonts/SourceHanSans-Medium.ttc

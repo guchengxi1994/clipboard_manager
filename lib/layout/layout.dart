@@ -3,6 +3,8 @@
 import 'package:clipboard_manager/layout/sidemenu.dart';
 import 'package:flutter/material.dart';
 
+import 'searching.dart';
+
 class Layout extends StatelessWidget {
   Layout({super.key, required this.child});
   Widget child;
@@ -15,9 +17,14 @@ class Layout extends StatelessWidget {
         children: [
           Scaffold(
             backgroundColor: Colors.transparent,
-            body: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [const SideMenu(), Expanded(child: child)],
+            body: Stack(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [const SideMenu(), Expanded(child: child)],
+                ),
+                const Positioned(left: 200, child: SearchingRegion())
+              ],
             ),
           )
         ],
