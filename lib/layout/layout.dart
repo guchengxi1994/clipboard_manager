@@ -25,7 +25,7 @@ class Layout extends StatelessWidget {
                   children: [const SideMenu(), Expanded(child: child)],
                 ),
                 const Positioned(left: 200, child: SearchingRegion()),
-                Positioned(left: 200, bottom: 10, child: SettingRegion())
+                const Positioned(left: 200, bottom: 10, child: SettingRegion())
               ],
             ),
           )

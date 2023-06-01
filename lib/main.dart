@@ -8,11 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'bridge/native.dart';
 import 'layout/layout.dart';
 import 'manager.dart';
 import 'searching_controller.dart';
 
-void main() {
+void main() async {
+  print(await api.rustBridgeSayHello());
   runApp(const MyApp());
 }
 
