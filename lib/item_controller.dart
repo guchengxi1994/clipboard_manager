@@ -55,8 +55,9 @@ class ItemController<T extends BaseModel> extends ChangeNotifier {
 
   bool isFiltered = false;
 
-  getFiltered({String? type, int? startTime, int? endTime}) {
-    assert(type != null || (startTime != null && endTime != null));
+  getFiltered({String? type, int? startTime, int? endTime, String? like}) {
+    assert(
+        type != null || (startTime != null && endTime != null) || like != null);
     if (type != null) {
       // filtered = items.where((element) => element.formats == type).toList();
       switch (type) {
@@ -89,6 +90,17 @@ class ItemController<T extends BaseModel> extends ChangeNotifier {
           .where(
               (element) => element.time > startTime && element.time < endTime)
           .toList();
+    }
+
+    if (like != null) {
+      if (like == "") {
+        filtered = items;
+      } else {
+        filtered = items
+            .where(
+                (element) => (element.metadata["remark"] ?? "").contains(like))
+            .toList();
+      }
     }
 
     isFiltered = true;

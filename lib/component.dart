@@ -5,26 +5,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
 
 typedef OnCopyClicked = void Function();
+typedef OnRemarkChanged = void Function(String s);
 
 class Item<T extends BaseModel> extends StatelessWidget {
-  const Item({super.key, required this.model, this.onCopyClicked});
+  Item(
+      {super.key,
+      required this.model,
+      this.onCopyClicked,
+      this.onRemarkChanged});
   final T model;
   final OnCopyClicked? onCopyClicked;
+  final OnRemarkChanged? onRemarkChanged;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: _childWrapper(_buildChild(model), context),
+        child: _childWrapper(_buildChild(), context),
       ),
     );
     // return Container();
   }
 
-  Widget _buildChild(T model) {
+  Widget _buildChild() {
     if (model.formats == "plainText") {
       return Text(model.content.toString());
     }
@@ -44,6 +52,8 @@ class Item<T extends BaseModel> extends StatelessWidget {
 
     return const Text("未知类型");
   }
+
+  final TextEditingController controller = TextEditingController();
 
   Widget _childWrapper(Widget child, BuildContext context) {
     return Container(
@@ -79,11 +89,38 @@ class Item<T extends BaseModel> extends StatelessWidget {
                 ),
                 Expanded(
                     child: Text(
-                  DateTime.fromMillisecondsSinceEpoch(model.time).toString(),
+                  DateFormat('yyyy-MM-dd HH:mm:ss')
+                      .format(DateTime.fromMillisecondsSinceEpoch(model.time)),
                   softWrap: true,
                   maxLines: 1,
                   overflow: TextOverflow.clip,
                 )),
+                Container(
+                  padding: const EdgeInsets.only(top: 6.5, left: 5, right: 5),
+                  width: 200,
+                  margin: const EdgeInsets.all(10),
+                  height: 30,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Colors.grey[200]!)),
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(bottom: 14.5),
+                        hintText: "输入备注",
+                        border: InputBorder.none,
+                        suffix: InkWell(
+                          onTap: () {
+                            if (onRemarkChanged != null) {
+                              onRemarkChanged!(controller.text);
+                            }
+                            controller.text = "";
+                          },
+                          child: const Icon(Icons.check),
+                        )),
+                  ),
+                ),
                 InkWell(
                   onTap: () async {
                     if (onCopyClicked != null) {
@@ -109,7 +146,28 @@ class Item<T extends BaseModel> extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(child: child)
+          Expanded(child: child),
+          Container(
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 214, 199, 199),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8))),
+            height: 30,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                SizedBox(
+                  child: Text(
+                    model.metadata.toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

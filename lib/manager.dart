@@ -161,6 +161,10 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
             childCount: items.length,
             (context, index) => Item(
                   model: items[index],
+                  onRemarkChanged: (s) {
+                    items[index].metadata["remark"] = s;
+                    setState(() {});
+                  },
                   onCopyClicked: () async {
                     final item = DataWriterItem();
                     if (items[index].formats == "plainText") {

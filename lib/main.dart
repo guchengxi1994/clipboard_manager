@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:clipboard_manager/item_controller.dart';
+import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ItemController()),
-          ChangeNotifierProvider(create: (_) => SearchingController())
+          ChangeNotifierProvider(create: (_) => SearchingController()),
+          ChangeNotifierProvider(create: (_) => SettingController())
         ],
         builder: (context, child) {
           return Layout(

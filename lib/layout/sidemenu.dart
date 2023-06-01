@@ -84,6 +84,9 @@ class _SideMenuState extends State<SideMenu> {
           const Icon(Icons.search),
           Expanded(
               child: TextField(
+            onChanged: (value) {
+              context.read<ItemController>().getFiltered(like: value);
+            },
             focusNode: node,
             decoration: const InputDecoration(
               hintText: "搜索",
