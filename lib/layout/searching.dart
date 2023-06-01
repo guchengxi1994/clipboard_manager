@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_useful_widgets/flutter_useful_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../i18n/searching.i18n.dart';
+
 class SearchingRegion extends StatelessWidget {
   const SearchingRegion({super.key});
 
@@ -24,7 +26,7 @@ class SearchingRegion extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _wrapper(
-                    "日期选择",
+                    "日期选择".i18n,
                     UsefulDateRangePicker(
                       textStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
@@ -50,7 +52,7 @@ class SearchingRegion extends StatelessWidget {
                   height: 30,
                 ),
                 _wrapper(
-                    "类型选择",
+                    "类型选择".i18n,
                     Expanded(
                         child: Wrap(
                       runSpacing: 10,
@@ -84,7 +86,7 @@ class SearchingRegion extends StatelessWidget {
                             SearchingController.options.first);
                         context.read<ItemController>().clearFiltered();
                       },
-                      child: const Text("重置"),
+                      child: Text("重置".i18n),
                     ),
                     TextButton(
                       onPressed: () {
@@ -92,7 +94,7 @@ class SearchingRegion extends StatelessWidget {
                             .read<SearchingController>()
                             .changeVisible(false);
                       },
-                      child: const Text("收起"),
+                      child: Text("收起".i18n),
                     )
                   ],
                 ),

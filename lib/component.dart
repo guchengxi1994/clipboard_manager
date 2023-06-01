@@ -7,6 +7,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
+import 'i18n/component.i18n.dart';
 
 typedef OnCopyClicked = void Function();
 typedef OnRemarkChanged = void Function(String s);
@@ -50,7 +51,7 @@ class Item<T extends BaseModel> extends StatelessWidget {
       );
     }
 
-    return const Text("未知类型");
+    return Text("未知类型".i18n);
   }
 
   final TextEditingController controller = TextEditingController();
@@ -108,7 +109,7 @@ class Item<T extends BaseModel> extends StatelessWidget {
                     controller: controller,
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(bottom: 14.5),
-                        hintText: "输入备注",
+                        hintText: "输入备注".i18n,
                         border: InputBorder.none,
                         suffix: InkWell(
                           onTap: () {
@@ -125,7 +126,7 @@ class Item<T extends BaseModel> extends StatelessWidget {
                   onTap: () async {
                     if (onCopyClicked != null) {
                       onCopyClicked!();
-                      SmartDialog.showToast("Copied");
+                      SmartDialog.showToast("已复制".i18n);
                     }
                   },
                   child: const Icon(

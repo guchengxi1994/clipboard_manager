@@ -4,6 +4,8 @@ import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../i18n/sidemenu.i18n.dart';
+
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
 
@@ -56,15 +58,15 @@ class _SideMenuState extends State<SideMenu> {
                 onPressed: () {
                   context.read<SettingController>().changeVisible(true);
                 },
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.settings),
-                    SizedBox(
+                    const Icon(Icons.settings),
+                    const SizedBox(
                       width: 10,
                     ),
-                    Text("设置"),
-                    Expanded(child: SizedBox()),
-                    Icon(Icons.chevron_right)
+                    Text("设置".i18n),
+                    const Expanded(child: SizedBox()),
+                    const Icon(Icons.chevron_right)
                   ],
                 ),
               )),
@@ -91,8 +93,8 @@ class _SideMenuState extends State<SideMenu> {
               context.read<ItemController>().getFiltered(like: value);
             },
             focusNode: node,
-            decoration: const InputDecoration(
-              hintText: "搜索",
+            decoration: InputDecoration(
+              hintText: "搜索".i18n,
               border: InputBorder.none,
             ),
           ))

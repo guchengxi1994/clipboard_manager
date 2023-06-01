@@ -5,6 +5,8 @@ import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'layout/layout.dart';
 import 'manager.dart';
@@ -32,12 +34,23 @@ class MyApp extends StatelessWidget {
       builder: FlutterSmartDialog.init(),
       scrollBehavior: CustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', "US"),
+        Locale('zh', "CN"),
+      ],
       theme: ThemeData(
         fontFamily: "思源",
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: I18n(
+        child: const MyHomePage(),
+      ),
     );
   }
 }

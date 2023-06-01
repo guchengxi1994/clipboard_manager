@@ -1,11 +1,22 @@
 import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_useful_widgets/flutter_useful_widgets.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:provider/provider.dart';
+import '../i18n/setting.i18n.dart';
 
-class SettingRegion extends StatelessWidget {
-  SettingRegion({super.key});
+class SettingRegion extends StatefulWidget {
+  const SettingRegion({super.key});
+
+  @override
+  State<SettingRegion> createState() => _SettingRegionState();
+}
+
+class _SettingRegionState extends State<SettingRegion> {
   final TextEditingController textController = TextEditingController();
+
+  late String lang = "中文";
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,7 @@ class SettingRegion extends StatelessWidget {
             child: Column(
               children: [
                 _wrapper(
-                    "水印文字",
+                    "水印文字".i18n,
                     Row(
                       children: [
                         Container(
@@ -42,21 +53,37 @@ class SettingRegion extends StatelessWidget {
                             decoration: InputDecoration(
                                 contentPadding:
                                     const EdgeInsets.only(bottom: 14.5),
-                                hintText: "输入水印文字",
+                                hintText: "输入水印文字".i18n,
                                 border: InputBorder.none,
                                 suffix: InkWell(
                                   onTap: () {
                                     controller
                                         .changeWatermark(textController.text);
-                                    SmartDialog.showToast("成功");
+                                    SmartDialog.showToast("成功".i18n);
                                   },
                                   child: const Icon(Icons.check),
                                 )),
                           ),
                         ),
-                        const Text("(仅支持英文和数字)")
+                        Text("(仅支持英文和数字)".i18n)
                       ],
                     )),
+                _wrapper(
+                    "切换语言".i18n,
+                    SimpleDropdownButton(
+                        hint: "选择语言".i18n,
+                        value: lang,
+                        dropdownItems: const ["中文", "English"],
+                        onChanged: (v) {
+                          if (v == "中文") {
+                            I18n.of(context).locale = const Locale("zh", "CN");
+                          } else {
+                            I18n.of(context).locale = const Locale('en', "US");
+                          }
+                          setState(() {
+                            lang = v!;
+                          });
+                        })),
                 Row(
                   children: [
                     const Expanded(child: SizedBox()),
@@ -64,7 +91,7 @@ class SettingRegion extends StatelessWidget {
                       onPressed: () {
                         context.read<SettingController>().changeVisible(false);
                       },
-                      child: const Text("收起"),
+                      child: Text("收起".i18n),
                     )
                   ],
                 ),
