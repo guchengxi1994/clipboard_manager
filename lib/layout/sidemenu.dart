@@ -1,5 +1,6 @@
 import 'package:clipboard_manager/item_controller.dart';
 import 'package:clipboard_manager/searching_controller.dart';
+import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +53,9 @@ class _SideMenuState extends State<SideMenu> {
               width: 180,
               margin: const EdgeInsets.all(10),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<SettingController>().changeVisible(true);
+                },
                 child: const Row(
                   children: [
                     Icon(Icons.settings),

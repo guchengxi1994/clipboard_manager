@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:clipboard_manager/setting_controller.dart';
 import 'package:clipboard_watcher/clipboard_watcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -115,7 +116,9 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
         img.Image? image = img.decodePng(imageData);
 
         if (image != null) {
-          image = img.drawString(image, "xiaoshuyui", font: font);
+          image = img.drawString(
+              image, context.read<SettingController>().watermark,
+              font: font);
           imageData = img.encodePng(image);
 
           final item = DataWriterItem();

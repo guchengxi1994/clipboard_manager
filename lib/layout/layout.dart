@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:clipboard_manager/layout/setting.dart';
 import 'package:clipboard_manager/layout/sidemenu.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,8 @@ class Layout extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [const SideMenu(), Expanded(child: child)],
                 ),
-                const Positioned(left: 200, child: SearchingRegion())
+                const Positioned(left: 200, child: SearchingRegion()),
+                Positioned(left: 200, bottom: 10, child: SettingRegion())
               ],
             ),
           )
