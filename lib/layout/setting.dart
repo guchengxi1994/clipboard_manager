@@ -1,3 +1,4 @@
+import 'package:clipboard_manager/bridge/native.dart';
 import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -74,11 +75,13 @@ class _SettingRegionState extends State<SettingRegion> {
                         hint: "选择语言".i18n,
                         value: lang,
                         dropdownItems: const ["中文", "English"],
-                        onChanged: (v) {
+                        onChanged: (v) async {
                           if (v == "中文") {
                             I18n.of(context).locale = const Locale("zh", "CN");
+                            await api.setLocale(s: "zh");
                           } else {
                             I18n.of(context).locale = const Locale('en', "US");
+                            await api.setLocale(s: "en");
                           }
                           setState(() {
                             lang = v!;

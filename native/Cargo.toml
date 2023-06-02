@@ -11,7 +11,9 @@ crate-type = ["lib","staticlib","cdylib",]
 [dependencies]
 anyhow = "= 1.0.66"
 flutter_rust_bridge = "= 1.77.1"
+lazy_static = "1.4.0"
 sqlx = { version = "0.6", features = [ "runtime-tokio-native-tls" , "sqlite","chrono" ] }
+tokio = { version = "1.25.0", features = ["full"] }
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "= 1.77.1"
