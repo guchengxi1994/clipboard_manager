@@ -36,6 +36,21 @@ pub extern "C" fn wire_set_locale(port_: i64, s: *mut wire_uint_8_list) {
     wire_set_locale_impl(port_, s)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_set_watermark_path(port_: i64, s: *mut wire_uint_8_list) {
+    wire_set_watermark_path_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_watermark(port_: i64) {
+    wire_get_watermark_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_set_watermark(port_: i64, s: *mut wire_uint_8_list) {
+    wire_set_watermark_impl(port_, s)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

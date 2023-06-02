@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         providers: [
           ChangeNotifierProvider(create: (_) => ItemController()),
           ChangeNotifierProvider(create: (_) => SearchingController()),
-          ChangeNotifierProvider(create: (_) => SettingController())
+          ChangeNotifierProvider(create: (_) => SettingController()..init())
         ],
         builder: (context, child) {
           return Layout(

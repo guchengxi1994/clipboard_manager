@@ -38,6 +38,18 @@ abstract class Native {
   Future<void> setLocale({required String s, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSetLocaleConstMeta;
+
+  Future<void> setWatermarkPath({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetWatermarkPathConstMeta;
+
+  Future<String> getWatermark({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetWatermarkConstMeta;
+
+  Future<void> setWatermark({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetWatermarkConstMeta;
 }
 
 class NativeImpl implements Native {
@@ -162,6 +174,56 @@ class NativeImpl implements Native {
   FlutterRustBridgeTaskConstMeta get kSetLocaleConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "set_locale",
+        argNames: ["s"],
+      );
+
+  Future<void> setWatermarkPath({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_watermark_path(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetWatermarkPathConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetWatermarkPathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_watermark_path",
+        argNames: ["s"],
+      );
+
+  Future<String> getWatermark({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_watermark(port_),
+      parseSuccessData: _wire2api_String,
+      constMeta: kGetWatermarkConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetWatermarkConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_watermark",
+        argNames: [],
+      );
+
+  Future<void> setWatermark({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_watermark(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetWatermarkConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetWatermarkConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_watermark",
         argNames: ["s"],
       );
 
@@ -419,6 +481,54 @@ class NativeWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(
               ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_set_locale');
   late final _wire_set_locale = _wire_set_localePtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_set_watermark_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_watermark_path(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_watermark_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_set_watermark_path');
+  late final _wire_set_watermark_path = _wire_set_watermark_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_watermark(
+    int port_,
+  ) {
+    return _wire_get_watermark(
+      port_,
+    );
+  }
+
+  late final _wire_get_watermarkPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_watermark');
+  late final _wire_get_watermark =
+      _wire_get_watermarkPtr.asFunction<void Function(int)>();
+
+  void wire_set_watermark(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_watermark(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_watermarkPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_set_watermark');
+  late final _wire_set_watermark = _wire_set_watermarkPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(

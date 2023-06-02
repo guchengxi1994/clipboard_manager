@@ -36,6 +36,21 @@ pub fn wire_set_locale(port_: MessagePort, s: String) {
     wire_set_locale_impl(port_, s)
 }
 
+#[wasm_bindgen]
+pub fn wire_set_watermark_path(port_: MessagePort, s: String) {
+    wire_set_watermark_path_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_get_watermark(port_: MessagePort) {
+    wire_get_watermark_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_set_watermark(port_: MessagePort, s: String) {
+    wire_set_watermark_impl(port_, s)
+}
+
 // Section: allocate functions
 
 // Section: related functions

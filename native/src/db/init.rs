@@ -12,6 +12,14 @@ pub fn path_exists(p: String) -> bool {
     Path::new(&p).exists()
 }
 
+const CREATE_CLIPBOARD_CONTENT_DB: &str = "CREATE TABLE IF NOT EXISTS clipboard (
+    uuid TEXT NOT NULL PRIMARY KEY ,
+    content TEXT,
+    type TEXT,
+    remark TEXT,
+    create_at integer
+)";
+
 pub fn init_when_first_time_start() -> anyhow::Result<()> {
     let rt = Runtime::new().unwrap();
     rt.block_on(async {
@@ -31,14 +39,8 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
         let mut pool = pool.write().await;
         *pool = MyPool::new(&url).await;
         let _p = pool.get_pool();
-        // let _ = sqlx::query(CREATE_OPERATION_DB)
-        //     .execute(_p)
-        //     .await?;
+        let _ = sqlx::query(CREATE_CLIPBOARD_CONTENT_DB).execute(_p).await?;
 
-        // let _ = sqlx::query(CREATE_FILE_DB).execute(_p).await?;
-        // let _ = sqlx::query(CREATE_FOLDER_DB).execute(_p).await?;
-        // let _ = sqlx::query(CREATE_PRACTICE_DB).execute(_p).await?;
-        // let _ = sqlx::query(CREATE_BROWSER_HISTORY).execute(_p).await?;
         anyhow::Ok(())
     })
 }

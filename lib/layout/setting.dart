@@ -57,8 +57,8 @@ class _SettingRegionState extends State<SettingRegion> {
                                 hintText: "输入水印文字".i18n,
                                 border: InputBorder.none,
                                 suffix: InkWell(
-                                  onTap: () {
-                                    controller
+                                  onTap: () async {
+                                    await controller
                                         .changeWatermark(textController.text);
                                     SmartDialog.showToast("成功".i18n);
                                   },

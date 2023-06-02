@@ -2,3 +2,4 @@ mod bridge_generated; /* AUTO INJECTED BY flutter_rust_bridge. This line may not
 mod api;
 mod db;
 mod locale;
+mod watermark;

@@ -103,6 +103,42 @@ fn wire_set_locale_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSaf
         },
     )
 }
+fn wire_set_watermark_path_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_watermark_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_watermark_path(api_s))
+        },
+    )
+}
+fn wire_get_watermark_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_watermark",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_watermark()),
+    )
+}
+fn wire_set_watermark_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_watermark",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_watermark(api_s))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks

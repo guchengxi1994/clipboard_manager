@@ -44,3 +44,18 @@ pub fn get_locale() -> String {
 pub fn set_locale(s: String) {
     crate::locale::set_locale(s)
 }
+
+// 设置watermark路径
+pub fn set_watermark_path(s: String) {
+    crate::watermark::init_watermark_path(s)
+}
+
+// 获取watermark
+pub fn get_watermark() -> String {
+    crate::watermark::get_watermark()
+}
+
+// 设置watermark
+pub fn set_watermark(s: String) {
+    crate::watermark::set_watermark(s)
+}
