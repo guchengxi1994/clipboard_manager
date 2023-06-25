@@ -10,7 +10,8 @@ extension Localization on String {
       {"zh_cn": "英文", "en_us": "English"} +
       {"zh_cn": "切换语言", "en_us": "Switch language"} +
       {"zh_cn": "收起", "en_us": "Hide"} +
-      {"zh_cn": "选择语言", "en_us": "Select"};
+      {"zh_cn": "选择语言", "en_us": "Select"} +
+      {"zh_cn": "图片文字提取", "en_us": "Auto Extract Text"};
 
   String get i18n => localize(this, _t);
 

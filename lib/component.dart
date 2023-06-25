@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:clipboard_manager/item_controller.dart';
+import 'package:clipboard_manager/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -68,9 +69,9 @@ class Item<T extends BaseModel> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+                color: Colors.deepPurple.withAlpha(50),
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8), topRight: Radius.circular(8))),
             height: 50,
             child: Row(
@@ -96,6 +97,18 @@ class Item<T extends BaseModel> extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.clip,
                 )),
+                if ((context.select<SettingController, bool>(
+                        (value) => value.autoExtractText)) &&
+                    model.formats == "png")
+                  ElevatedButton(
+                      onPressed: () {
+                        if (context.read<SettingController>().isInited) {
+                          final s = model.content as Uint8List;
+                          final r = context.read<SettingController>().infer(s);
+                          debugPrint(r);
+                        }
+                      },
+                      child: Text("提取文字".i18n)),
                 Container(
                   padding: const EdgeInsets.only(top: 6.5, left: 5, right: 5),
                   width: 200,

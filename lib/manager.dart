@@ -113,18 +113,21 @@ class _ClipboardManagerWidgetState extends State<ClipboardManagerWidget>
         final stream = file.getStream();
         final data = await stream.toList();
         var imageData = data.first;
-        img.Image? image = img.decodePng(imageData);
 
-        if (image != null) {
-          image = img.drawString(
-              image, context.read<SettingController>().watermark,
-              font: font);
-          imageData = img.encodePng(image);
+        if (!context.read<SettingController>().autoExtractText) {
+          img.Image? image = img.decodePng(imageData);
 
-          final item = DataWriterItem();
-          item.add(Formats.png(imageData));
-          await ClipboardWriter.instance.write([item]);
-          skipUpdate();
+          if (image != null) {
+            image = img.drawString(
+                image, context.read<SettingController>().watermark,
+                font: font);
+            imageData = img.encodePng(image);
+
+            final item = DataWriterItem();
+            item.add(Formats.png(imageData));
+            await ClipboardWriter.instance.write([item]);
+            skipUpdate();
+          }
         }
 
         final (width, height) = await getImageSize(imageData);

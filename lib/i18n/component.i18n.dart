@@ -4,7 +4,8 @@ extension Localization on String {
   static final _t = Translations("zh_cn") +
       {"zh_cn": "未知类型", "en_us": "Unknow type"} +
       {"zh_cn": "输入备注", "en_us": "Remark"} +
-      {"zh_cn": "已复制", "en_us": "Copied"};
+      {"zh_cn": "已复制", "en_us": "Copied"} +
+      {"zh_cn": "提取文字", "en_us": "Extract Text"};
 
   String get i18n => localize(this, _t);
 

@@ -87,6 +87,19 @@ class _SettingRegionState extends State<SettingRegion> {
                             lang = v!;
                           });
                         })),
+                const SizedBox(
+                  height: 10,
+                ),
+                _wrapper(
+                    "图片文字提取".i18n,
+                    Switch(
+                        value: context.select<SettingController, bool>(
+                            (value) => value.autoExtractText),
+                        onChanged: (v) {
+                          context
+                              .read<SettingController>()
+                              .changeExtractText(v);
+                        })),
                 Row(
                   children: [
                     const Expanded(child: SizedBox()),
@@ -110,7 +123,7 @@ class _SettingRegionState extends State<SettingRegion> {
     return Row(
       children: [
         SizedBox(
-          width: 80,
+          width: 120,
           child: Text(title),
         ),
         child
